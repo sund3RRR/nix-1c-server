@@ -12,9 +12,8 @@ stdenv.mkDerivation rec {
     for file in $src/*.deb; do
       echo "$file"
       if [[ "$file" == *"${version}-server"* || "$file" == *"${version}-common"* ]]; then
-          echo "Распаковка файла: $file"
+          echo "Unpacking source archive: $file"
           dpkg-deb -x "$file" .
-          echo "Файл $file успешно распакован."
       fi
     done
   '';
