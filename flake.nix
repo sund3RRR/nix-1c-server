@@ -6,6 +6,6 @@
   };
 
   outputs = { self, nixpkgs }: {
-    nixosModules.default = import ./modules/1c-server.nix;
+    nixosModules.server-1c = import ./modules/1c-server.nix;
   };
 }
