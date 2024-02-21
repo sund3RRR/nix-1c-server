@@ -10,7 +10,7 @@
 , sourceDir
 }:
 let
-  libcom-err2 = callPackage ../libcom-err { };
+  libcom-err2 = callPackage ../libcom-err2 { };
 in
 stdenv.mkDerivation rec {
   pname = "1c-server-package";

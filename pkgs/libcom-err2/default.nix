@@ -1,7 +1,7 @@
 { stdenv, autoPatchelfHook, fetchurl, dpkg }:
 
 stdenv.mkDerivation rec {
-  pname = "libcom_err2";
+  pname = "libcom-err2";
   version = "1.47.0-2";
 
   src = fetchurl {
