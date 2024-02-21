@@ -1,12 +1,21 @@
-{ stdenv, dpkg, autoPatchelfHook, libkrb5, gss, unixODBC, corefonts, callPackage }:
+{ stdenv
+, dpkg
+, autoPatchelfHook
+, libkrb5
+, gss
+, unixODBC
+, corefonts
+, callPackage
+, version ? ""
+, sourceDir
+}:
 let
   libcom-err2 = callPackage ../libcom-err { };
 in
 stdenv.mkDerivation rec {
   pname = "1c-server-package";
-  version = "8.3.24.1439";
-
-  src = ./src;
+  inherit version;
+  src = sourceDir;
 
   unpackPhase = ''
     for file in $src/*.deb; do
