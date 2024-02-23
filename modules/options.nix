@@ -155,6 +155,14 @@ let
                   description = "Path to the server data directory.";
                   default = "/var/lib/usr1cv8/.1cv8/1C/1cv8/standalone-server/";
                 };
+                options.name = lib.mkOption {
+                  default = "";
+                  description = ''
+                    Infobase name.
+                    By default, an infobase ID string presentation is used
+                  '';
+                  type = lib.types.str;
+                };
                 options.direct-regport = lib.mkOption {
                   type = lib.types.port;
                   description = "Primary port used to establish direct server connection";
