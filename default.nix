@@ -17,7 +17,36 @@
         createHome = true;
       };
     })
-    { 
+    {
+      networking.firewall.allowedTCPPorts = lib.concatLists (lib.mapAttrsToList (k: v:
+        (if v.services.full-server.openFirewall then
+          [
+            v.services.full-server.settings.port
+            v.services.full-server.settings.regPort
+          ] else []) ++
+        (if v.services.standalone-server.openFirewall then
+          [
+            (lib.mkIf v.services.standalone-server.settings.http.enable v.services.standalone-server.settings.http.port)
+            v.services.standalone-server.settings.direct-regport
+            v.services.standalone-server.settings.debug-port
+        ] else [])) config.server-1c.instances);
+
+      networking.firewall.allowedTCPPortRanges = lib.concatLists (lib.mapAttrsToList (k: v:
+      let
+        main-port-range = lib.splitString ":" v.services.full-server.settings.portRange;
+        standalone-port-range = lib.splitString ":" v.services.standalone-server.settings.direct-range;
+      in
+        (if v.services.full-server.openFirewall then 
+        [{
+          from = lib.strings.toInt (builtins.elemAt main-port-range 0);
+          to = lib.strings.toInt (builtins.elemAt main-port-range 1);
+        }] else []) ++
+        (if v.services.standalone-server.openFirewall then 
+        [{
+          from = lib.strings.toInt (builtins.elemAt standalone-port-range 0);
+          to = lib.strings.toInt (builtins.elemAt standalone-port-range 1);
+        }] else [])) config.server-1c.instances);
+
       systemd.services = lib.concatMapAttrs (k: v:
         let
           server-1c = pkgs.callPackage ./pkgs/1c-server {
