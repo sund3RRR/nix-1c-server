@@ -43,11 +43,6 @@ let
               description = "Whether to open ports in firewall";
               type = lib.types.bool;
             };
-            options.createOwnUser = lib.mkOption {
-              default = false;
-              description = "Create own user and run service on behalf of this user";
-              type = lib.types.bool;
-            };
             options.settings = lib.mkOption {
               default = {};
               description = "Settings for main server service";
@@ -123,11 +118,6 @@ let
             options.openFirewall = lib.mkOption {
               default = true;
               description = "Whether to open ports in firewall";
-              type = lib.types.bool;
-            };
-            options.createOwnUser = lib.mkOption {
-              default = false;
-              description = "Create own user and run service on behalf of this user";
               type = lib.types.bool;
             };
             options.settings = lib.mkOption {

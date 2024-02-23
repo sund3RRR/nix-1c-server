@@ -7,25 +7,23 @@
   imports = [ ./modules/options.nix ];
 
   config = lib.mkMerge [
-    { users.groups.grp1cv8 = {}; }
-    {
-      users.users = lib.concatMapAttrs (k: v: {
-        "usr1cv8-${k}" = {
-          group = "grp1cv8";
-          extraGroups = [ ];
-          home = "/var/lib/usr1cv8-${k}";
-          isSystemUser = true;
-          createHome = true;
-        };
-      }) config.server-1c.instances;
-
-      
+    (lib.mkIf (lib.length (lib.attrNames config.server-1c.instances) > 0) { 
+      users.groups.grp1cv8 = {};
+      users.users.usr1cv8 = {
+        group = "grp1cv8";
+        extraGroups = [ ];
+        home = "/var/lib/usr1cv8";
+        isSystemUser = true;
+        createHome = true;
+      };
+    })
+    { 
       systemd.services = lib.concatMapAttrs (k: v:
         let
           server-1c = pkgs.callPackage ./pkgs/1c-server {
             version = v.version;
             sourceDir = config.server-1c.sourceDir;
-        };
+          };
         in
         {
         "1c-server-${v.version}-${k}.service" = lib.mkIf v.services.full-server.enable {
@@ -54,9 +52,9 @@
           {
             ExecStart = "${server-1c-fhs-wrapper}/bin/1c-server-fhs --full-server";
             Restart = "always";
-            User = "usr1cv8-${k}";
+            User = "usr1cv8";
             Group = "grp1cv8";
-            WorkingDirectory = "/var/lib/usr1cv8-${k}";
+            WorkingDirectory = "/var/lib/usr1cv8";
             Type = "simple"; 
           };
         };
@@ -88,9 +86,9 @@
           {
             ExecStart = "${server-1c-fhs-wrapper}/bin/1c-server-fhs --standalone-server";
             Restart = "always";
-            User = "usr1cv8-${k}";
+            User = "usr1cv8";
             Group = "grp1cv8";
-            WorkingDirectory = "/var/lib/usr1cv8-${k}";
+            WorkingDirectory = "/var/lib/usr1cv8";
             Type = "simple";
           };
         };
