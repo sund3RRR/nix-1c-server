@@ -45,7 +45,7 @@
               "-pingPeriod ${builtins.toString cfg.settings.pingPeriod}"
               "-pingTimeout ${builtins.toString cfg.settings.pingTimeout}"
               "${cfg.settings.debug}"
-            ];
+            ] ++ cfg.settings.extraArgs;
             server-1c-fhs-wrapper = pkgs.callPackage ./pkgs/1c-server-fhs {
               argsServer = commandLineArgsServer;
               server-1c-pkg = server-1c;
@@ -82,7 +82,7 @@
               "--direct-range=${cfg.settings.direct-range}"
 
               "--debug-port=${builtins.toString cfg.settings.debug-port}"
-            ];
+            ] ++ cfg.settings.extraArgs;
             server-1c-fhs-wrapper = pkgs.callPackage ./pkgs/1c-server-fhs {
               argsStandalone = commandLineArgsStandalone;
               server-1c-pkg = server-1c;
