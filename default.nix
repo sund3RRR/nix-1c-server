@@ -30,7 +30,9 @@
           description = "1C:Enterprise Server 8.3 (${v.version})";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
-
+          preStart = ''
+            chown -R "usr1cv8:grp1cv8" "${v.services.full-server.settings.data}"
+          '';
           serviceConfig = 
           let
             cfg = v.services.full-server;
@@ -55,14 +57,17 @@
             User = "usr1cv8";
             Group = "grp1cv8";
             WorkingDirectory = "/var/lib/usr1cv8";
-            Type = "simple"; 
+            Type = "simple";
+            PermissionsStartOnly = true;
           };
         };
         "1c-standalone-server-${v.version}-${k}" = lib.mkIf v.services.standalone-server.enable {
           description = "1C:Enterprise Standalone Server 8.3 (${v.version})";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
-
+          preStart = ''
+            chown -R "usr1cv8:grp1cv8" "${v.services.standalone-server.settings.data}"
+          '';
           serviceConfig = 
           let
             cfg = v.services.standalone-server;
@@ -90,6 +95,7 @@
             Group = "grp1cv8";
             WorkingDirectory = "/var/lib/usr1cv8";
             Type = "simple";
+            PermissionsStartOnly = true;
           };
         };
       }
