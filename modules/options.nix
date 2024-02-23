@@ -39,7 +39,7 @@ let
           type = lib.types.submodule {
             options.enable = lib.mkEnableOption (lib.mdDoc "main server service");
             options.openFirewall = lib.mkOption {
-              default = true;
+              default = false;
               description = "Whether to open ports in firewall";
               type = lib.types.bool;
             };
@@ -116,7 +116,7 @@ let
           type = lib.types.submodule {
             options.enable = lib.mkEnableOption (lib.mdDoc "standalone server");
             options.openFirewall = lib.mkOption {
-              default = true;
+              default = false;
               description = "Whether to open ports in firewall";
               type = lib.types.bool;
             };
