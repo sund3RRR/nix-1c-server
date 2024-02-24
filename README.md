@@ -6,13 +6,13 @@
 ### В качестве модуля NixOS
 
 #### **`/etc/nixos/configuration.nix`**
-
+Конкретную версию
 ```nix
 { config, pkgs, lib,... }:  
 let  
  server-1c = builtins.fetchTarball {  
-   url = "https://github.com/sund3RRR/nix-1c-server/archive/412507cf4b58e3174ab17e4d78cb13bbdd046645.tar.gz";  
-   sha256 = "sha256:07c7wla0pmg2j1mwdv2ga7jza505rbvghmx5bximsfnq0cairxcv";  
+   url = "https://github.com/sund3RRR/nix-1c-server/archive/fc8167a1d78248b4260dbddd4fbeb5fcb41ee78b.tar.gz";  
+   sha256 = "sha256:16ahdb0v9hw0kcjw8dsp18ww77nz36zcskzwc04vflb7dggcpyrr";  
  };
 in
 {
@@ -23,7 +23,22 @@ in
   # The rest of your configuration.nix file
   ...
 ```
-
+Последнюю версию
+```nix
+{ config, pkgs, lib,... }:  
+let  
+ server-1c = builtins.fetchTarball {  
+   url = "https://github.com/sund3RRR/nix-1c-server/archive/refs/heads/main.tar.gz";  
+ };
+in
+{
+  imports = [
+    ./hardware-configuration.nix
+    server-1c 
+  ];
+  # The rest of your configuration.nix file
+  ...
+```
 ### Flake
 WIP
 ## Использование
