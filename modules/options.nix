@@ -12,20 +12,24 @@ let
       description = "Version of 1C server instance";
       type = lib.types.str;
     };
-
-    options.ibcmd = lib.mkOption {
+    options.programs = lib.mkOption {
       default = {};
-      description = "Console server management utility";
+      description = "Programs provided by this module";
       type = lib.types.submodule {
-        options.enable = lib.mkEnableOption (lib.mdDoc "ibcmd");
-      };
-    };
-
-    options.ibsrv = lib.mkOption {
-      default = {};
-      description = "Server entrypoint program";
-      type = lib.types.submodule {
-        options.enable = lib.mkEnableOption (lib.mdDoc "ibsrv");
+        options.ibcmd = lib.mkOption {
+          default = {};
+          description = "Console server management utility";
+          type = lib.types.submodule {
+            options.enable = lib.mkEnableOption (lib.mdDoc "ibcmd");
+          };
+        };
+        options.ibsrv = lib.mkOption {
+          default = {};
+          description = "Server entrypoint program";
+          type = lib.types.submodule {
+            options.enable = lib.mkEnableOption (lib.mdDoc "ibsrv");
+          };
+        };
       };
     };
 

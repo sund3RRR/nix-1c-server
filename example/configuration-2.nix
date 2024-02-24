@@ -18,6 +18,10 @@ in
   	  "main" = {
   	    enable = true;
   	    version = "8.3.24.1368";
+				programs = {
+					ibcmd.enable = true;
+					ibsrv.enable = true;
+				}
   	    services.standalone-server = {
 		      enable = true;
 		      openFirewall = true;
@@ -31,6 +35,10 @@ in
       "testing" = {
    	    enable = true;
    	    version = "8.3.24.1439";
+				programs = {
+					ibcmd.enable = true;
+					ibsrv.enable = true;
+				}
    	    services.standalone-server = {
    	      enable = true;
    	      openFirewall = true;

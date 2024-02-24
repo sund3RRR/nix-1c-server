@@ -45,7 +45,28 @@ boolean
 
 
 
-## server-1c\.instances\.\<name>\.ibcmd
+## server-1c\.instances\.\<name>\.programs
+
+
+
+Programs provided by this module
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+` { } `
+
+*Declared by:*
+ - [/modules/options\.nix](https://github.com/sund3RRR/nix-1c-server/blob/main/modules/options.nix)
+
+
+
+## server-1c\.instances\.\<name>\.programs\.ibcmd
 
 
 
@@ -66,7 +87,7 @@ submodule
 
 
 
-## server-1c\.instances\.\<name>\.ibcmd\.enable
+## server-1c\.instances\.\<name>\.programs\.ibcmd\.enable
 
 
 
@@ -92,7 +113,7 @@ boolean
 
 
 
-## server-1c\.instances\.\<name>\.ibsrv
+## server-1c\.instances\.\<name>\.programs\.ibsrv
 
 
 
@@ -113,7 +134,7 @@ submodule
 
 
 
-## server-1c\.instances\.\<name>\.ibsrv\.enable
+## server-1c\.instances\.\<name>\.programs\.ibsrv\.enable
 
 
 

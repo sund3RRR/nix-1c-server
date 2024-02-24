@@ -18,6 +18,25 @@
       };
     })
     {
+      environment.systemPackages = lib.concatLists (lib.mapAttrsToList (k: v:
+      let
+        server-1c = pkgs.callPackage ./pkgs/1c-server {
+          version = v.version;
+          sourceDir = config.server-1c.sourceDir;
+        };
+        server-1c-fhs-wrapper = pkgs.callPackage ./pkgs/1c-server-fhs {
+          server-1c-pkg = server-1c;
+        };
+      in
+        (if v.programs.ibcmd.enable then [
+          (pkgs.writeScriptBin "ibcmd-${v.version}" "exec ${server-1c-fhs-wrapper}/bin/1c-server-fhs --ibcmd \"$@\"")
+        ] else []) ++
+        (if v.programs.ibsrv.enable then [
+          (pkgs.writeScriptBin "ibsrv-${v.version}" "exec ${server-1c-fhs-wrapper}/bin/1c-server-fhs --ibsrv \"$@\"")
+        ] else [])
+      ) config.server-1c.instances);
+    }
+    {
       networking.firewall.allowedTCPPorts = lib.concatLists (lib.mapAttrsToList (k: v:
         (if v.services.full-server.openFirewall then
           [
