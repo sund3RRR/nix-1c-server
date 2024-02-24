@@ -30,7 +30,7 @@ WIP
 ### Подготовка
 :warning: Модуль не предоставляет никакие установочные файлы 1С сервера :warning:
 
-Вам необходимо авторизоваться на сайте https://releases.1c.ru/total, выбрать версию, скачать дистрибутив **Сервер 1С:Предприятия (64-bit) для DEB-based Linux-систем** и распаковать `.tar.gz` архив с `.deb` пакетами в любую папку (поддержка установщиков `.run` возможно появится позже).
+Вам необходимо авторизоваться на сайте https://releases.1c.ru/total, выбрать версию, скачать дистрибутив **Сервер 1С:Предприятия (64-bit) для DEB-based Linux-систем** и распаковать `.tar.gz` архив с `.deb` пакетами в любую папку (поддержка установщиков `.run` [возможно](https://github.com/sund3RRR/nix-1c-server?tab=readme-ov-file#Ограничения) появится позже).
 ### Настройка
   1. Укажите путь до каталога с `.deb` пакетами 1С сервера в поле `sourceDir`
   ```nix
@@ -45,7 +45,7 @@ WIP
       instances = {
         "main" = {
           enable = true;
-  	      version = "8.3.24.1368";
+          version = "8.3.24.1368";
           # Модуль фильтрует .deb пакеты на основе версии,
           # так что вы можете хранить все версии в одном каталоге
         };
@@ -55,23 +55,23 @@ WIP
   3. Настройте в соответствии с [опциями](docs/docs.md)
   ```nix
     server-1c = {
-  	sourceDir = /home/sunder/dev/1c-server/pkgs/1c-server/src;
-  	instances = {
-  	  "main" = {
-  	    enable = true;
-  	    version = "8.3.24.1368";
-  	    services.standalone-server = {
-		      enable = true;
-		      openFirewall = true;
-  	      settings = {
-            http.enable = true;
-            name = "main";
-            data = "/var/lib/usr1cv8/.1cv8/1C/1cv8/standalone-server/";
-  	      };
-  	    };	
-   	  };
-  	};
-  };
+      sourceDir = /home/sunder/dev/1c-server/pkgs/1c-server/src;
+      instances = {
+        "main" = {
+         enable = true;
+         version = "8.3.24.1368";
+           services.standalone-server = {
+             enable = true;
+             openFirewall = true;
+             settings = {
+               http.enable = true;
+               name = "main";
+               data = "/var/lib/usr1cv8/.1cv8/1C/1cv8/standalone-server/";
+             };
+           };
+         };
+       };
+     };
   ```
 ## Примеры
 Вы можете посмотреть примеры использования в папке [example](https://github.com/sund3RRR/nix-1c-server/tree/main/example)
